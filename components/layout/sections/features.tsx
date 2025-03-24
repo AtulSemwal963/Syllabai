@@ -8,42 +8,80 @@ interface FeaturesProps {
   description: string;
 }
 
+// const featureList: FeaturesProps[] = [
+//   {
+//     icon: "TabletSmartphone",
+//     title: "Mobile Friendly",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, consectetur.",
+//   },
+//   {
+//     icon: "BadgeCheck",
+//     title: "Social Proof",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur. Natus consectetur, odio ea accusamus aperiam.",
+//   },
+//   {
+//     icon: "Goal",
+//     title: "Targeted Content",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. odio ea accusamus aperiam.",
+//   },
+//   {
+//     icon: "PictureInPicture",
+//     title: "Strong Visuals",
+//     description:
+//       "Lorem elit. A odio velit cum aliquam. Natus consectetur dolores, odio ea accusamus aperiam.",
+//   },
+//   {
+//     icon: "MousePointerClick",
+//     title: "Clear CTA",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing. odio ea accusamus consectetur.",
+//   },
+//   {
+//     icon: "Newspaper",
+//     title: "Clear Headline",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur.",
+//   },
+// ];
 const featureList: FeaturesProps[] = [
   {
-    icon: "TabletSmartphone",
-    title: "Mobile Friendly",
+    icon: "Clock",
+    title: "AI-Powered Lesson Planning",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, consectetur.",
+      "Generate structured lesson plans instantly, saving hours of manual work every week.",
   },
   {
-    icon: "BadgeCheck",
-    title: "Social Proof",
+    icon: "FileText",
+    title: "Automated Assessments & Quizzes",
     description:
-      "Lorem ipsum dolor sit amet consectetur. Natus consectetur, odio ea accusamus aperiam.",
+      "Create MCQs, flashcards, and tests from study material in seconds—no manual input needed.",
   },
   {
-    icon: "Goal",
-    title: "Targeted Content",
+    icon: "BookOpen",
+    title: "AI-Generated Book Summaries",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. odio ea accusamus aperiam.",
+      "Summarize books into key takeaways, chapter breakdowns, and discussion prompts in minutes.",
   },
   {
-    icon: "PictureInPicture",
-    title: "Strong Visuals",
+    icon: "Sparkle",
+    title: "Smart Content Customization",
     description:
-      "Lorem elit. A odio velit cum aliquam. Natus consectetur dolores, odio ea accusamus aperiam.",
+      "Tailor AI-generated lesson plans and quizzes to fit different teaching styles and subjects.",
   },
   {
-    icon: "MousePointerClick",
-    title: "Clear CTA",
+    icon: "UserCheck",
+    title: "Easy to Use & Intuitive",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing. odio ea accusamus consectetur.",
+      "Designed for teachers of all tech levels—seamless interface with no learning curve.",
   },
   {
-    icon: "Newspaper",
-    title: "Clear Headline",
+    icon: "Cloud",
+    title: "Accessible Anywhere",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur.",
+      "Cloud-based platform ensures you can access lesson plans, assessments, and summaries anytime, anywhere.",
   },
 ];
 
@@ -59,9 +97,8 @@ export const FeaturesSection = () => {
       </h2>
 
       <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground mb-8">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem
-        fugiat, odit similique quasi sint reiciendis quidem iure veritatis optio
-        facere tenetur.
+      AI-driven lesson planning, assessments, and book summaries—all in one tool.  
+      Built to save educators time, improve efficiency, and enhance student engagement.
       </h3>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -73,7 +110,7 @@ export const FeaturesSection = () => {
                   <Icon
                     name={icon as keyof typeof icons}
                     size={24}
-                    color="hsl(var(--primary))"
+                    color="#007FFF"
                     className="text-primary"
                   />
                 </div>

@@ -8,30 +8,74 @@ interface BenefitsProps {
   description: string;
 }
 
+// const benefitList: BenefitsProps[] = [
+//   {
+//     icon: "Blocks",
+//     title: "Build Brand Trust",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur dolores.",
+//   },
+//   {
+//     icon: "LineChart",
+//     title: "More Leads",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, natus consectetur.",
+//   },
+//   {
+//     icon: "Wallet",
+//     title: "Higher Conversions",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus consectetur. A odio velit cum aliquam",
+//   },
+//   {
+//     icon: "Sparkle",
+//     title: "Test Marketing Ideas",
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur dolores.",
+//   },
+// ];
 const benefitList: BenefitsProps[] = [
   {
-    icon: "Blocks",
-    title: "Build Brand Trust",
+    icon: "Clock",
+    title: "Save 10+ Hours a Week",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur dolores.",
+      "Automate lesson planning, assessments, and study materials so teachers can focus on teaching, not paperwork.",
   },
   {
-    icon: "LineChart",
-    title: "More Leads",
+    icon: "BookOpen",
+    title: "AI-Powered Chapter Summaries",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam, natus consectetur.",
+      "Instantly generate concise, structured chapter summaries to enhance lesson plans and student engagement.",
   },
   {
-    icon: "Wallet",
-    title: "Higher Conversions",
+    icon: "FileText",
+    title: "Auto-Generated Assessments",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus consectetur. A odio velit cum aliquam",
+      "Create quizzes, MCQs, and flashcards from study material in seconds—no more manual question-making.",
   },
   {
-    icon: "Sparkle",
-    title: "Test Marketing Ideas",
+    icon: "Users",
+    title: "Designed for Schools & Colleges",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. A odio velit cum aliquam. Natus consectetur dolores.",
+      "Custom-built for educational institutions, ensuring seamless adoption, integration, and impact.",
+  },
+  {
+    icon: "TrendingUp",
+    title: "Boost Teaching Efficiency",
+    description:
+      "Reduce time spent on admin tasks, improve content quality, and enhance student learning outcomes.",
+  },
+  {
+    icon: "Settings",
+    title: "Customizable & Easy to Use",
+    description:
+      "Tailor AI-generated lesson plans and assessments to your teaching style with an intuitive interface.",
+  },
+  {
+    icon: "LayoutDashboard",
+    title: "Collaboration Dashboards",
+    description:
+      "Unlock teacher superpowers with dashboards to create vibrant spaces for teaming up, sharing ideas, and sparking teacher collaboration magic, made simple!",
   },
 ];
 
@@ -40,15 +84,14 @@ export const BenefitsSection = () => {
     <section id="benefits" className="container py-24 sm:py-32">
       <div className="grid lg:grid-cols-2 place-items-center lg:gap-24">
         <div>
-          <h2 className="text-lg text-primary mb-2 tracking-wider">Benefits</h2>
+          <h2 className="text-lg text-primary mb-2 tracking-wider" style={{color:"#007FFF"}}>Benefits</h2>
 
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Your Shortcut to Success
+          Teach Smarter, Not Harder
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non
-            ducimus reprehenderit architecto rerum similique facere odit
-            deleniti necessitatibus quo quae.
+          Automate lesson planning, assessments, and chapter summaries with AI.  
+          Free up your time and focus on what truly matters—engaging and inspiring students.
           </p>
         </div>
 
@@ -63,7 +106,7 @@ export const BenefitsSection = () => {
                   <Icon
                     name={icon as keyof typeof icons}
                     size={32}
-                    color="hsl(var(--primary))"
+                    color="#007FFF"
                     className="mb-6 text-primary"
                   />
                   <span className="text-5xl text-muted-foreground/15 font-medium transition-all delay-75 group-hover/number:text-muted-foreground/30">

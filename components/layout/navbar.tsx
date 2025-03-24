@@ -1,5 +1,5 @@
 "use client";
-import { ChevronsDown, Github, Menu } from "lucide-react";
+import { BookOpen, Github, Menu } from "lucide-react";
 import React from "react";
 import {
   Sheet,
@@ -34,10 +34,10 @@ interface FeatureProps {
 }
 
 const routeList: RouteProps[] = [
-  {
-    href: "#testimonials",
-    label: "Testimonials",
-  },
+  // {
+  //   href: "#testimonials",
+  //   label: "Testimonials",
+  // },
   {
     href: "#team",
     label: "Team",
@@ -54,18 +54,28 @@ const routeList: RouteProps[] = [
 
 const featureList: FeatureProps[] = [
   {
-    title: "Showcase Your Value ",
-    description: "Highlight how your product solves user problems.",
+    title: "Lesson Planning",
+    description: "Create detailed lesson plans with objectives, activities, and resources.",
   },
   {
-    title: "Build Trust",
+    title: "Assignments",
     description:
-      "Leverages social proof elements to establish trust and credibility.",
+      "Generate quizzes, tests, and homework assignments",
   },
   {
-    title: "Capture Leads",
+    title: "Summarization",
     description:
-      "Make your lead capture form visually appealing and strategically.",
+      "Create concise summaries and study materials",
+  },
+  {
+    title: "Flashcard Generation",
+    description:
+      "Generate interactive flashcards for effective memorization and review",
+  },
+  {
+    title: "Presentation Generator",
+    description:
+      "Create engaging slide presentations with key points and visuals",
   },
 ];
 
@@ -74,8 +84,8 @@ export const Navbar = () => {
   return (
     <header className="shadow-inner bg-opacity-15 w-[90%] md:w-[70%] lg:w-[75%] lg:max-w-screen-xl top-5 mx-auto sticky border border-secondary z-40 rounded-2xl flex justify-between items-center p-2 bg-card">
       <Link href="/" className="font-bold text-lg flex items-center">
-        <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
-        Shadcn
+        <BookOpen className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
+        Syllabai
       </Link>
       {/* <!-- Mobile --> */}
       <div className="flex items-center lg:hidden">
@@ -95,8 +105,8 @@ export const Navbar = () => {
               <SheetHeader className="mb-4 ml-4">
                 <SheetTitle className="flex items-center">
                   <Link href="/" className="flex items-center">
-                    <ChevronsDown className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-9 h-9 mr-2 border text-white" />
-                    Shadcn
+                    <BookOpen className="bg-gradient-to-tr border-secondary from-primary via-primary/70 to-primary rounded-lg w-7 h-7 mr-2 border text-white " />
+                    SyllabAi
                   </Link>
                 </SheetTitle>
               </SheetHeader>
@@ -133,26 +143,21 @@ export const Navbar = () => {
               Features
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div className="grid w-[600px] grid-cols-2 gap-5 p-4">
-                <Image
-                  src="https://avatars.githubusercontent.com/u/75042455?v=4"
-                  alt="RadixLogo"
-                  className="h-full w-full rounded-md object-cover"
-                  width={600}
-                  height={600}
-                />
-                <ul className="flex flex-col gap-2">
+              <div className="w-[800px] p-4 bg-card rounded-xl shadow-lg transition-all duration-200 ease-in-out">
+                <ul className="grid grid-cols-3 gap-3">
                   {featureList.map(({ title, description }) => (
                     <li
                       key={title}
-                      className="rounded-md p-3 text-sm hover:bg-muted"
+                      className="group rounded-lg p-3 text-sm transition-all duration-200 hover:bg-muted/50 cursor-pointer border border-transparent hover:border-muted-foreground/20"
                     >
-                      <p className="mb-1 font-semibold leading-none text-foreground">
-                        {title}
-                      </p>
-                      <p className="line-clamp-2 text-muted-foreground">
-                        {description}
-                      </p>
+                      <div className="flex flex-col gap-1.5">
+                        <p className="text-[#007FFF] font-semibold text-sm group-hover:scale-105 transition-transform duration-200">
+                          {title}
+                        </p>
+                        <p className="text-muted-foreground text-xs opacity-90 group-hover:opacity-100 transition-opacity duration-200 leading-relaxed line-clamp-2">
+                          {description}
+                        </p>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -175,15 +180,15 @@ export const Navbar = () => {
       <div className="hidden lg:flex">
         <ToggleTheme />
 
-        <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
+        {/* <Button asChild size="sm" variant="ghost" aria-label="View on GitHub">
           <Link
             aria-label="View on GitHub"
-            href="https://github.com/nobruf/shadcn-landing-page.git"
+            href="https://github.com/nobruf/SyllabAi-landing-page.git"
             target="_blank"
           >
             <Github className="size-5" />
           </Link>
-        </Button>
+        </Button> */}
       </div>
     </header>
   );

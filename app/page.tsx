@@ -5,6 +5,7 @@ import { FAQSection } from "@/components/layout/sections/faq";
 import { FeaturesSection } from "@/components/layout/sections/features";
 import { FooterSection } from "@/components/layout/sections/footer";
 import { HeroSection } from "@/components/layout/sections/hero";
+import { Navbar } from "@/components/layout/navbar";
 import { PricingSection } from "@/components/layout/sections/pricing";
 import { ServicesSection } from "@/components/layout/sections/services";
 import { SponsorsSection } from "@/components/layout/sections/sponsors";
@@ -42,17 +43,18 @@ export const metadata = {
 export default function Home() {
   return (
     <>
+     <Navbar />
       <HeroSection />
-      <SponsorsSection />
+      {/* <SponsorsSection /> */}
       <BenefitsSection />
       <FeaturesSection />
       <ServicesSection />
-      <TestimonialSection />
+      {/* <TestimonialSection /> */}
       <TeamSection />
-      <CommunitySection />
-      <PricingSection />
+      {/* <CommunitySection /> */}
+      {/* <PricingSection /> */}
       <ContactSection />
-      <FAQSection />
+      {/* <FAQSection /> */}
       <FooterSection />
     </>
   );
