@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-const useResizable = () => {
+export default function useResizable(containerRef) {
   const [leftWidth, setLeftWidth] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef(null);
 
   const handleMouseDown = (e) => {
     e.preventDefault();
@@ -35,7 +34,8 @@ const useResizable = () => {
     };
   }, [isDragging]);
 
-  return { leftWidth, handleMouseDown, containerRef };
-};
-
-export default useResizable;
+  return {
+    leftWidth,
+    handleMouseDown
+  };
+} 

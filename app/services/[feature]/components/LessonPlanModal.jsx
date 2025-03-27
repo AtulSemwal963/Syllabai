@@ -1,14 +1,12 @@
-import React from 'react';
-
-const LessonPlanningModal = ({
+export default function LessonPlanModal({
   isOpen,
   onClose,
   numLectures,
   setNumLectures,
   lectureDuration,
   setLectureDuration,
-  onSubmit,
-}) => {
+  onSubmit
+}) {
   if (!isOpen) return null;
 
   return (
@@ -52,6 +50,4 @@ const LessonPlanningModal = ({
       </div>
     </div>
   );
-};
-
-export default LessonPlanningModal;
+} 

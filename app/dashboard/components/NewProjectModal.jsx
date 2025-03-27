@@ -3,7 +3,22 @@ import { X } from 'lucide-react';
 import Link from 'next/link';
 import { projectTypes } from '../constants/projectTypes';
 
-const NewProjectModal = ({ isOpen, onClose, onLessonPlanning, onAssignment, onFlashcards }) => {
+const ProjectTypeButton = ({ type, onClick }) => (
+  <button
+    className="group p-6 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-left bg-white hover:bg-blue-50"
+    onClick={onClick}
+  >
+    <div className="flex items-center space-x-4 mb-4">
+      <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors relative">
+        <type.icon className="w-8 h-8 text-blue-600" />
+      </div>
+      <h3 className="text-lg font-medium text-gray-800">{type.name}</h3>
+    </div>
+    <p className="text-sm text-gray-600">{type.description}</p>
+  </button>
+);
+
+const NewProjectModal = ({ isOpen, onClose, onLessonPlanning, onAssignment, onFlashcards, onPresentation }) => {
   if (!isOpen) return null;
 
   return (
@@ -18,61 +33,14 @@ const NewProjectModal = ({ isOpen, onClose, onLessonPlanning, onAssignment, onFl
         <div className="grid grid-cols-2 gap-4">
           {projectTypes.map((type) =>
             type.type === 'lesson' ? (
-              <button
-                key={type.type}
-                className="group p-6 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-left bg-white hover:bg-blue-50"
-                onClick={onLessonPlanning}
-              >
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                    <type.icon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-800">{type.name}</h3>
-                </div>
-                <p className="text-sm text-gray-600">{type.description}</p>
-              </button>
+              <ProjectTypeButton key={type.type} type={type} onClick={onLessonPlanning} />
             ) : type.type === 'assignment' ? (
-              <button
-                key={type.type}
-                className="group p-6 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-left bg-white hover:bg-blue-50"
-                onClick={onAssignment}
-              >
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                    <type.icon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-800">{type.name}</h3>
-                </div>
-                <p className="text-sm text-gray-600">{type.description}</p>
-              </button>
+              <ProjectTypeButton key={type.type} type={type} onClick={onAssignment} />
             ) : type.type === 'flashcards' ? (
-              <button
-                key={type.type}
-                className="group p-6 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-left bg-white hover:bg-blue-50"
-                onClick={onFlashcards}
-              >
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                    <type.icon className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-lg font-medium text-gray-800">{type.name}</h3>
-                </div>
-                <p className="text-sm text-gray-600">{type.description}</p>
-              </button>
-            ) : (
+              <ProjectTypeButton key={type.type} type={type} onClick={onFlashcards} />
+            ): type.type==='presentation'?(<ProjectTypeButton key={type.type} type={type} onClick={onPresentation} />)  : (
               <Link href={`/services/${type.type}`} target="_blank" key={type.type}>
-                <button
-                  className="group p-6 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors text-left bg-white hover:bg-blue-50"
-                  onClick={onClose}
-                >
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
-                      <type.icon className="w-8 h-8 text-blue-600" />
-                    </div>
-                    <h3 className="text-lg font-medium text-gray-800">{type.name}</h3>
-                  </div>
-                  <p className="text-sm text-gray-600">{type.description}</p>
-                </button>
+                <ProjectTypeButton type={type} onClick={onClose} />
               </Link>
             )
           )}

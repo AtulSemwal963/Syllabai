@@ -1,54 +1,76 @@
-"use client"
-import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import WorkspaceGrid from './components/WorkspaceGrid';
-import ProjectList from './components/ProjectList';
-import NewProjectModal from './components/NewProjectModal';
-import LessonPlanningModal from './components/LessonPlanningModal';
-import AssignmentModal from './components/AssignmentModal';
-import FlashcardModal from './components/FlashcardModal'; // New import
-import useWorkspace from './hooks/useWorkspace';
+"use client";
+import React, { useState, useCallback } from "react";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import WorkspaceGrid from "./components/WorkspaceGrid";
+import ProjectList from "./components/ProjectList";
+import NewProjectModal from "./components/NewProjectModal";
+import LessonPlanningModal from "./components/LessonPlanningModal";
+import AssignmentModal from "./components/AssignmentModal";
+import FlashcardModal from "./components/FlashcardModal";
+import PresentationGeneratorModal from "./components/PresentationGeneratorModal";
+import useWorkspace from "./hooks/useWorkspace";
 
 function App() {
   const [selectedWorkspace, setSelectedWorkspace] = useState(null);
-  const [showNewProjectModal, setShowNewProjectModal] = useState(false);
-  const [showLessonPlanningModal, setShowLessonPlanningModal] = useState(false);
-  const [showAssignmentModal, setShowAssignmentModal] = useState(false);
-  const [showFlashcardModal, setShowFlashcardModal] = useState(false); // New state
-  const [numLectures, setNumLectures] = useState(1);
-  const [lectureDuration, setLectureDuration] = useState(60);
-  const [assignmentDifficulty, setAssignmentDifficulty] = useState('medium');
-  const [assignmentInstructions, setAssignmentInstructions] = useState('');
-  const [numQuestions, setNumQuestions] = useState(10);
-  const [flashcardInstructions, setFlashcardInstructions] = useState(''); // New state
+  const [modals, setModals] = useState({
+    newProject: false,
+    lessonPlanning: false,
+    assignment: false,
+    flashcards: false,
+    presentation: false,
+  });
+  
+  const [lessonSettings, setLessonSettings] = useState({ numLectures: 1, lectureDuration: 60 });
+  const [assignmentSettings, setAssignmentSettings] = useState({ difficulty: "medium", questions: 10, instructions: "" });
+  const [flashcardInstructions, setFlashcardInstructions] = useState("");
+  const [presentationSettings, setPresentationSettings] = useState({
+    generationType: "standard",
+    numSlides: 10,
+    slides: [],
+    instructions: "",
+  });
 
   const { workspaces, currentWorkspace } = useWorkspace(selectedWorkspace);
 
+  const toggleModal = useCallback((modal, state) => {
+    setModals((prev) => ({ ...prev, [modal]: state }));
+  }, []);
+
+  const openService = (url) => {
+    toggleModal("newProject", false);
+    window.open(url, "_blank");
+  };
+
   const handleLessonPlanSubmit = () => {
-    setShowLessonPlanningModal(false);
-    setShowNewProjectModal(false);
-    window.open(`/services/lesson?lectures=${numLectures}&duration=${lectureDuration}`, '_blank');
+    toggleModal("lessonPlanning", false);
+    openService(`/services/lesson?lectures=${lessonSettings.numLectures}&duration=${lessonSettings.lectureDuration}`);
   };
 
   const handleAssignmentSubmit = () => {
-    setShowAssignmentModal(false);
-    setShowNewProjectModal(false);
-    window.open(
-      `/services/assignment?difficulty=${assignmentDifficulty}&questions=${numQuestions}&instructions=${encodeURIComponent(
-        assignmentInstructions
-      )}`,
-      '_blank'
+    toggleModal("assignment", false);
+    openService(
+      `/services/assignment?difficulty=${assignmentSettings.difficulty}&questions=${assignmentSettings.questions}&instructions=${encodeURIComponent(assignmentSettings.instructions)}`
     );
   };
 
   const handleFlashcardSubmit = () => {
-    setShowFlashcardModal(false);
-    setShowNewProjectModal(false);
-    window.open(
-      `/services/flashcards?instructions=${encodeURIComponent(flashcardInstructions)}`,
-      '_blank'
-    );
+    toggleModal("flashcards", false);
+    openService(`/services/flashcards?instructions=${encodeURIComponent(flashcardInstructions)}`);
+  };
+
+  const handlePresentationSubmit = (data) => {
+    toggleModal("presentation", false);
+    setPresentationSettings(data);
+    const params = new URLSearchParams({
+      type: data.generationType,
+      ...(data.generationType === "custom" && {
+        numSlides: data.numSlides,
+        slides: JSON.stringify(data.slides),
+        instructions: encodeURIComponent(data.instructions),
+      }),
+    });
+    openService(`/services/presentation?${params.toString()}`);
   };
 
   return (
@@ -64,46 +86,65 @@ function App() {
           {selectedWorkspace ? (
             <ProjectList
               projects={currentWorkspace?.projects}
-              onNewProject={() => setShowNewProjectModal(true)}
+              onNewProject={() => toggleModal("newProject", true)}
             />
           ) : (
             <WorkspaceGrid workspaces={workspaces} onSelect={setSelectedWorkspace} />
           )}
         </div>
       </div>
+
       <NewProjectModal
-        isOpen={showNewProjectModal}
-        onClose={() => setShowNewProjectModal(false)}
-        onLessonPlanning={() => setShowLessonPlanningModal(true)}
-        onAssignment={() => setShowAssignmentModal(true)}
-        onFlashcards={() => setShowFlashcardModal(true)} // New prop
+        isOpen={modals.newProject}
+        onClose={() => toggleModal("newProject", false)}
+        onLessonPlanning={() => toggleModal("lessonPlanning", true)}
+        onAssignment={() => toggleModal("assignment", true)}
+        onFlashcards={() => toggleModal("flashcards", true)}
+        onPresentation={() => toggleModal("presentation", true)}
       />
+
       <LessonPlanningModal
-        isOpen={showLessonPlanningModal}
-        onClose={() => setShowLessonPlanningModal(false)}
-        numLectures={numLectures}
-        setNumLectures={setNumLectures}
-        lectureDuration={lectureDuration}
-        setLectureDuration={setLectureDuration}
+        isOpen={modals.lessonPlanning}
+        onClose={() => toggleModal("lessonPlanning", false)}
+        numLectures={lessonSettings.numLectures}
+        setNumLectures={(value) => setLessonSettings((prev) => ({ ...prev, numLectures: value }))}
+        lectureDuration={lessonSettings.lectureDuration}
+        setLectureDuration={(value) => setLessonSettings((prev) => ({ ...prev, lectureDuration: value }))}
         onSubmit={handleLessonPlanSubmit}
       />
+
       <AssignmentModal
-        isOpen={showAssignmentModal}
-        onClose={() => setShowAssignmentModal(false)}
-        assignmentDifficulty={assignmentDifficulty}
-        setAssignmentDifficulty={setAssignmentDifficulty}
-        numQuestions={numQuestions}
-        setNumQuestions={setNumQuestions}
-        assignmentInstructions={assignmentInstructions}
-        setAssignmentInstructions={setAssignmentInstructions}
+        isOpen={modals.assignment}
+        onClose={() => toggleModal("assignment", false)}
+        assignmentDifficulty={assignmentSettings.difficulty}
+        setAssignmentDifficulty={(value) => setAssignmentSettings((prev) => ({ ...prev, difficulty: value }))}
+        numQuestions={assignmentSettings.questions}
+        setNumQuestions={(value) => setAssignmentSettings((prev) => ({ ...prev, questions: value }))}
+        assignmentInstructions={assignmentSettings.instructions}
+        setAssignmentInstructions={(value) => setAssignmentSettings((prev) => ({ ...prev, instructions: value }))}
         onSubmit={handleAssignmentSubmit}
       />
+
       <FlashcardModal
-        isOpen={showFlashcardModal}
-        onClose={() => setShowFlashcardModal(false)}
+        isOpen={modals.flashcards}
+        onClose={() => toggleModal("flashcards", false)}
         flashcardInstructions={flashcardInstructions}
         setFlashcardInstructions={setFlashcardInstructions}
         onSubmit={handleFlashcardSubmit}
+      />
+
+      <PresentationGeneratorModal
+        isOpen={modals.presentation}
+        onClose={() => toggleModal("presentation", false)}
+        generationType={presentationSettings.generationType}
+        setGenerationType={(value) => setPresentationSettings((prev) => ({ ...prev, generationType: value }))}
+        numSlides={presentationSettings.numSlides}
+        setNumSlides={(value) => setPresentationSettings((prev) => ({ ...prev, numSlides: value }))}
+        slides={presentationSettings.slides}
+        setSlides={(value) => setPresentationSettings((prev) => ({ ...prev, slides: value }))}
+        presentationInstructions={presentationSettings.instructions}
+        setPresentationInstructions={(value) => setPresentationSettings((prev) => ({ ...prev, instructions: value }))}
+        onSubmit={handlePresentationSubmit}
       />
     </div>
   );
