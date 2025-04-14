@@ -17,7 +17,7 @@ enum PopularPlan {
 interface PlanProps {
   title: string;
   popular: PopularPlan;
-  price: number;
+  price: number|string;
   description: string;
   buttonText: string;
   benefitList: string[];
@@ -29,44 +29,45 @@ const plans: PlanProps[] = [
     popular: 0,
     price: 0,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
+      "Get started with essential tools to streamline your teaching process at no cost.",
     buttonText: "Start Free Trial",
     benefitList: [
-      "1 team member",
-      "1 GB storage",
-      "Upto 2 pages",
-      "Community support",
-      "AI assistance",
+      "Unlimited Lesson Summarizations",
+      "Unlimited Lesson Planning",
+      "Create up to 5 Projects",
     ],
   },
   {
     title: "Premium",
     popular: 1,
-    price: 45,
+    price: 12.99,
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Get starterd",
+      "Unlock advanced AI tools and unlimited access to enhance your teaching efficiency.",
+    buttonText: "Get Started",
     benefitList: [
-      "4 team member",
-      "8 GB storage",
-      "Upto 6 pages",
-      "Priority support",
-      "AI assistance",
+      "Unlimited Lesson Summarizations",
+      "Unlimited Lesson Planning",
+      "Unlimited Assignment Creation",
+      "Unlimited Flashcard Generation",
+      "Unlimited Presentation Generation",
+      "Unlimited Projects",
+      "Access to Group Workspace",
+      "Priority AI Assistance",
     ],
   },
   {
-    title: "Enterprise",
+    title: "Institution",
     popular: 0,
-    price: 120,
+    price: "Custom Pricing",
     description:
-      "Lorem ipsum dolor sit, amet ipsum consectetur adipisicing elit.",
-    buttonText: "Contact US",
+      "Tailored solutions for schools and organizations with enterprise-grade features.",
+    buttonText: "Contact Us",
     benefitList: [
-      "10 team member",
-      "20 GB storage",
-      "Upto 10 pages",
-      "Phone & email support",
-      "AI assistance",
+      "Unlimited Access",
+      "Access to Group Workspace",
+      "Priority AI Assistance",
+      "Dedicated Account Manager",
+      "Custom Integrations",
     ],
   },
 ];
@@ -79,11 +80,11 @@ export const PricingSection = () => {
       </h2>
 
       <h2 className="text-3xl md:text-4xl text-center font-bold mb-4">
-        Get unlimitted access
+      Unlock the Full Power of Syllabai
       </h2>
 
       <h3 className="md:w-1/2 mx-auto text-xl text-center text-muted-foreground pb-14">
-        Lorem ipsum dolor sit amet consectetur adipisicing reiciendis.
+      Choose a plan to access AI-powered lesson planning, assessments, and teaching tools that save you time and elevate your classroom.
       </h3>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-4">
@@ -105,8 +106,8 @@ export const PricingSection = () => {
                 </CardDescription>
 
                 <div>
-                  <span className="text-3xl font-bold">${price}</span>
-                  <span className="text-muted-foreground"> /month</span>
+                  <span className="text-3xl font-bold">{price=="Custom Pricing"?"":"$"}{price}</span>
+                  <span className="text-muted-foreground">{price=="Custom Pricing"?"":"/month"}</span>
                 </div>
               </CardHeader>
 
