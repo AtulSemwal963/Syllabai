@@ -13,16 +13,16 @@ import { TeamSection } from "@/components/layout/sections/team";
 import { TestimonialSection } from "@/components/layout/sections/testimonial";
 
 export const metadata = {
-  title: "Shadcn - Landing template",
-  description: "Free Shadcn landing page for developers",
+  title: "Syllabai-Boost Teaching Power",
+  description: "Boost Teaching Power",
   openGraph: {
     type: "website",
     url: "https://github.com/nobruf/shadcn-landing-page.git",
-    title: "Shadcn - Landing template",
-    description: "Free Shadcn landing page for developers",
+    title: "Syllabai-Boost Teaching Power",
+    description: "Automate lesson planning, assessments, and study materials with AI. Free up 10+ hours a week",
     images: [
       {
-        url: "https://res.cloudinary.com/dbzv9xfjp/image/upload/v1723499276/og-images/shadcn-vue.jpg",
+        url: "/demo-img.png",
         width: 1200,
         height: 630,
         alt: "Shadcn - Landing template",
