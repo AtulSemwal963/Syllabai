@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export default function useResizable(containerRef) {
   const [leftWidth, setLeftWidth] = useState(50);
@@ -9,16 +9,16 @@ export default function useResizable(containerRef) {
     setIsDragging(true);
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setIsDragging(false);
-  };
+  }, []);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (!isDragging || !containerRef.current) return;
     const container = containerRef.current.getBoundingClientRect();
     const newWidth = ((e.clientX - container.left) / container.width) * 100;
     setLeftWidth(Math.max(20, Math.min(80, newWidth)));
-  };
+  }, [isDragging, containerRef]);
 
   useEffect(() => {
     if (isDragging) {
@@ -32,7 +32,7 @@ export default function useResizable(containerRef) {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   return {
     leftWidth,

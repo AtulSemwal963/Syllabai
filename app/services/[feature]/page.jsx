@@ -64,7 +64,18 @@ export default function FeaturePage() {
       difficulty,
       questions,
     });
-  }, [searchParams, feature]);
+  }, [
+    searchParams,
+    feature,
+    type,
+    numSlides,
+    slides,
+    instructions,
+    numLectures,
+    lectureDuration,
+    difficulty,
+    questions
+  ]);
 
   const getOptions = () => {
     switch (feature) {
