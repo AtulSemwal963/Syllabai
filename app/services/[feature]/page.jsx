@@ -156,6 +156,27 @@ export default function FeaturePage() {
           <FileUpload onFileChange={handleFileChange} />
         </div>
       ) : (
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="overflow-auto p-4">
+              <h3 className="text-lg font-semibold mb-4">PDF Content</h3>
+              <div className="bg-gray-100 p-4 rounded-lg h-full overflow-y-auto">
+                <ContentViewer
+                  feature={feature}
+                  pdfText={feature === "presentation" ? null : pdfText}
+                  pptxFile={feature === "presentation" ? pptxFile : null}
+                  flippedCards={flippedCards}
+                  toggleFlip={toggleFlip}
+                  openAccordion={openAccordion}
+                  toggleAccordion={toggleAccordion}
+                  difficulty={difficulty}
+                  onDownloadPresentation={feature === "presentation" ? handleDownloadPresentation : undefined}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        /* Original PDFViewer layout - commented out for future use
         <div className="max-w-7xl mx-auto" ref={containerRef}>
           <div className="bg-white rounded-lg shadow-lg p-6 flex" style={{ height: '95vh' }}>
             <div
@@ -197,6 +218,7 @@ export default function FeaturePage() {
             </div>
           </div>
         </div>
+        */
       )}
     </div>
   );
