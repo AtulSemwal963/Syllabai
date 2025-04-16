@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import Link from 'next/link';
 
 export const HeroSection = () => {
   const { theme } = useTheme();
@@ -41,8 +42,8 @@ export const HeroSection = () => {
           <p className="max-w-screen-sm mx-auto text-xl text-muted-foreground">
             {`Automate lesson planning, assessments, and study materials with AI. Free up 10+ hours a week and focus on what truly matters—teaching. 🚀`}
           </p>
-
-          <div className="space-y-4 md:space-y-0 md:space-x-4">
+{/* <Link href="/dashboard"> */}
+<div className="space-y-4 md:space-y-0 md:space-x-4">
             <Button
               className="w-5/6 md:w-1/4 font-bold group/arrow"
               style={{ backgroundColor: "#007FFF" }}
@@ -52,6 +53,8 @@ export const HeroSection = () => {
               <ArrowRight className="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform" />
             </Button>
           </div>
+{/* </Link> */}
+          
         </div>
 
         <div className="relative group mt-14 w-full">
