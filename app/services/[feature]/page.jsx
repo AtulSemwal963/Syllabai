@@ -8,7 +8,7 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import './flipcard.css';
 
 import FileUpload from './components/FileUpload';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import LoadingOverlay from './components/LoadingOverlay';
 import LessonPlanModal from './components/LessonPlanModal';
 import ContentViewer from './components/ContentViewer';
@@ -17,10 +17,10 @@ import useResizable from './hooks/useResizable';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
-const PDFViewer = dynamic(() => import('./components/PDFViewer'), {
-  ssr: false,
-  loading: () => <LoadingOverlay />
-});
+// const PDFViewer = dynamic(() => import('./components/PDFViewer'), {
+//   ssr: false,
+//   loading: () => <LoadingOverlay />
+// });
 
 export default function FeaturePage() {
   const params = useParams();
