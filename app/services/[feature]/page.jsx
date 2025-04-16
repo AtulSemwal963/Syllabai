@@ -8,7 +8,7 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import './flipcard.css';
 
 import FileUpload from './components/FileUpload';
-import PDFViewer from '@/app/services/[feature]/components/PDFViewer';
+import PDFViewer from './components/PDFViewer.jsx';
 import LoadingOverlay from './components/LoadingOverlay';
 import LessonPlanModal from './components/LessonPlanModal';
 import ContentViewer from './components/ContentViewer';
