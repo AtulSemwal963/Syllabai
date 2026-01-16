@@ -5,18 +5,40 @@ import { ArrowRight } from "lucide-react";
 import { useTheme } from "next-themes";
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export const HeroSection = () => {
   const { theme } = useTheme();
   const supabase = createClientComponentClient()
+  const router = useRouter()
+  const [user, setUser] = useState(null)
 
-  const login = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`
-      }
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
+    }
+    getUser()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
     })
+
+    return () => subscription.unsubscribe()
+  }, [supabase])
+
+  const handleGetStarted = async () => {
+    if (user) {
+      router.push('/dashboard')
+    } else {
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`
+        }
+      })
+    }
   }
 
   return (
@@ -47,9 +69,9 @@ export const HeroSection = () => {
             <Button
               className="w-5/6 md:w-1/4 font-bold group/arrow"
               style={{ backgroundColor: "#007FFF" }}
-              onClick={login}
+              onClick={handleGetStarted}
             >
-              Join the Waitlist
+              Get started now
               <ArrowRight className="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform" />
             </Button>
           </div>
