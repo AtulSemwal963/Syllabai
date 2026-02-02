@@ -167,40 +167,56 @@ export default function FeaturePage() {
           <FileUpload onFileChange={handleFileChange} />
         </div>
       ) : (
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <div className="overflow-auto p-4">
-              <h3 className="text-lg font-semibold mb-4">PDF Content</h3>
-              <div className="bg-gray-100 p-4 rounded-lg h-full overflow-y-auto">
-                <ContentViewer
-                  feature={feature}
-                  pdfText={feature === "presentation" ? null : pdfText}
-                  pptxFile={feature === "presentation" ? pptxFile : null}
-                  flippedCards={flippedCards}
-                  toggleFlip={toggleFlip}
-                  openAccordion={openAccordion}
-                  toggleAccordion={toggleAccordion}
-                  difficulty={difficulty}
-                  onDownloadPresentation={feature === "presentation" ? handleDownloadPresentation : undefined}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        /* Original PDFViewer layout - commented out for future use
         <div className="max-w-7xl mx-auto" ref={containerRef}>
           <div className="bg-white rounded-lg shadow-lg p-6 flex" style={{ height: '95vh' }}>
             <div
               className="overflow-auto border-r relative"
               style={{ width: `${leftWidth}%`, minWidth: '20%', maxWidth: '80%' }}
             >
-              <PDFViewer
-                pdfFile={pdfFile}
-                pageNumber={pageNumber}
-                numPages={numPages}
-                onDocumentLoadSuccess={({ numPages }) => setNumPages(numPages)}
-                changePage={changePage}
-              />
+              <div className="flex flex-col items-center">
+                <div className="flex items-center gap-2 mb-4 p-2 bg-gray-50 rounded">
+                  <button
+                    onClick={() => changePage(-1)}
+                    disabled={pageNumber <= 1}
+                    className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <span className="text-sm font-medium">Page {pageNumber} of {numPages}</span>
+                  <button
+                    onClick={() => changePage(1)}
+                    disabled={pageNumber >= numPages}
+                    className="p-2 rounded-full hover:bg-gray-100 disabled:opacity-50"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+                
+                <Document 
+                  file={pdfFile} 
+                  onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                  className="max-w-full"
+                  loading={
+                    <div className="flex items-center justify-center p-4">
+                      <Loader2 className="w-6 h-6 animate-spin mr-2" />
+                      <p>Loading PDF...</p>
+                    </div>
+                  }
+                >
+                  <Page
+                    pageNumber={pageNumber}
+                    renderTextLayer={true}
+                    renderAnnotationLayer={true}
+                    className="max-w-full"
+                    loading={
+                      <div className="flex items-center justify-center p-4">
+                        <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                        <p>Loading page {pageNumber}...</p>
+                      </div>
+                    }
+                  />
+                </Document>
+              </div>
             </div>
 
             <div
@@ -212,7 +228,7 @@ export default function FeaturePage() {
               className="overflow-auto p-4"
               style={{ width: `${100 - leftWidth}%`, minWidth: '20%' }}
             >
-              <h3 className="text-lg font-semibold mb-4">PDF Content</h3>
+              <h3 className="text-lg font-semibold mb-4">Generated Content</h3>
               <div className="bg-gray-100 p-4 rounded-lg h-full overflow-y-auto">
                 <ContentViewer
                   feature={feature}
@@ -229,7 +245,6 @@ export default function FeaturePage() {
             </div>
           </div>
         </div>
-        */
       )}
     </div>
   );
